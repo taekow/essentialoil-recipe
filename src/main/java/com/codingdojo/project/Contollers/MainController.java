@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.codingdojo.project.Models.LoginUser;
@@ -136,6 +137,59 @@ public class MainController {
 		return "redirect:/dashboard";
 		
 	}
+	
+	//******* Recipe post route ********//
+	@GetMapping("/recipes/details/{id}")
+	public String showRecipe(
+			@PathVariable("id") Long id,
+			Model recipeModel,
+			HttpSession session) {
+		if(session.getAttribute("loggedInUser") != null) {
+			
+			Recipe recipe = recipeService.findById(id);
+			recipeModel.addAttribute("recipe", recipe);
+			recipeModel.addAttribute("user", userService.findUserByEmail("loggedInUser"));
+			
+			return "details.jsp";
+		}
+		
+		return "redirect:/";
+	}
+	
+	//******* Edit Book get route ********//
+	@GetMapping("/recipes/{id}/edit")
+	public String editRecipe(
+			@PathVariable("id") Long id,
+			Model editModel,
+			HttpSession session) {
+		if(session.getAttribute("loggedInUser") != null) {
+			
+			Recipe recipe = recipeService.findById(id);
+			editModel.addAttribute("recipe", recipe);
+			
+			return "edit.jsp";
+		}
+		
+		return "redirect:/";
+	}
+	
+	//******* Edit Book post route ********//
+	@PostMapping("/recipes/{id}")
+	public String updateRecipe(
+			@Valid
+			@ModelAttribute("recipe") Recipe recipe,
+			BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "edit.jsp";
+		}
+		
+		recipeService.updateRecipe(recipe);
+		
+		return "redirect:/dashboard";
+	}
+	
+	
 	
 	
 }

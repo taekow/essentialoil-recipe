@@ -57,7 +57,7 @@
 				<tbody>
 					<c:forEach var="recipe" items="${recipes}">
 						<tr>
-							<td><a href="recipes/${recipe.id}">${recipe.name}</a></td>
+							<td><a href="recipes/details/${recipe.id}">${recipe.name}</a></td>
 							<td>${recipe.category}</td>
 							<c:choose>
 								<c:when test="${loggedInUser.id == recipe.user.id}">

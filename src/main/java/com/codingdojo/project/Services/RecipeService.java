@@ -25,6 +25,17 @@ public class RecipeService {
 		return recipeRepository.findAll();
 	}
 	
+	// Retrieve recipe by id
+	public Recipe findById(Long id) {
+		Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+		
+		if (optionalRecipe.isPresent()) {
+			return optionalRecipe.get();
+			
+		} else {
+			return null;
+		}
+	}
 	
 	// Retrieve recipe title
 	public Recipe findByName(String name) {

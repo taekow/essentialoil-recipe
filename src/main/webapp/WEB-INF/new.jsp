@@ -17,13 +17,15 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <script type="text/javascript" src="js/app.js"></script>
 <!-- for Bootstrap CSS -->
+
+
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 <!-- For any Bootstrap that uses JS or jQuery-->
 <script src="/webjars/jquery/jquery.min.js"></script>
 </head>
 <body>
 	<div class="container">
-		<div class="row">
+		<div class="row mt-5">
 			<div class="d-flex">
 				<div class="flex-fill p-2">
 					<h1 class="pt-5">Add a New Recipe</h1>
