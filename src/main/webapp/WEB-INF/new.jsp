@@ -29,7 +29,7 @@
 					<h1 class="pt-5">Add a New Recipe</h1>
 				</div>
 				<div class="align-self-end mb-3">
-					<a href="dashboard">Back</a> |
+					<a href="/dashboard">Back</a> |
 					<a href="/logout">Log out</a>
 				</div>
 			</div>

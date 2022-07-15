@@ -96,7 +96,7 @@ public class MainController {
 			HttpSession session) {
 
 		if(session.getAttribute("loggedInUser") != null) {
-			recipe.addAttribute("recipe", recipeService.findAllRecipe()); 
+			recipe.addAttribute("recipes", recipeService.findAllRecipe()); 
 			
 			return "dashboard.jsp";
 			
