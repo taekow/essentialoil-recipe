@@ -28,7 +28,7 @@
 				<div class="flex-fill p-2">
 					<h1 class="mt-5 text-info">
 						Hello,
-						<c:out value="${loggedInUser.name}" /> !
+						<c:out value="${loggedInUser.name}"></c:out> !
 					</h1>
 				</div>
 				<div class="align-self-end mb-3">

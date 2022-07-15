@@ -55,7 +55,7 @@ public class MainController {
 		// Register a user
 		userService.registerUser(newUser);
 		// Put a user in Session
-		session.setAttribute("", newUser);
+		session.setAttribute("loggedInUser", newUser);
 		
 		return "redirect:/dashboard";
 	}
