@@ -31,13 +31,20 @@
 						<c:out value="${loggedInUser.name}" /> !
 					</h1>
 				</div>
-				<div class="align-self-end p-4">
-					<a href="/favorite">My Favorite</a> |
+				<div class="align-self-end mb-3">
+					<a href="/favorites">My Favorite</a> |
 					<a href="/logout">Log out</a>
 				</div>
 			</div>
 		</div>
-		<h3 class="mt-4">Essential Oil Recipes</h3>
+		<div class=row>
+			<div class="col mt-5">
+				<h3>Essential Oil Recipes</h3>
+			</div>
+			<div class="col mt-5 text-end">
+				<a href="/recipes/new">+ Add NEW RECIPE</a>
+			</div>
+		</div>
 		<div class="row mt-5 d-flex justify-content-center">
 			<table class="table">
 				<thead class="thead-dark">
@@ -52,6 +59,14 @@
 						<tr>
 							<td><a href="recipes/${recipe.id}">${recipe.name}</a></td>
 							<td>${recipe.category}</td>
+							<c:choose>
+								<c:when test="${loggedInUser.id == recipe.user.id}">
+									<td><a href="recipes/${recipe.id}/edit">Edit</a>
+										||
+										<a href="recipes/${recipe.id}/edit">Delete</a> 
+									</td>
+								</c:when>
+							</c:choose>
 						</tr>
 					</c:forEach>
 						<tr>
@@ -59,9 +74,9 @@
 				</tbody>
 			</table>
 		</div>
-		<div>
+		<!--<div>
 			<a href="/recipes/new" class="btn btn-info mt-5" role="button">&lt; ADD NEW RECIPE</a>
-		</div>
+		</div> -->
 	</div>
 </body>
 </html>

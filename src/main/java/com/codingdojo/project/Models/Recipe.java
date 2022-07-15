@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="recipe")
+@Table(name="recipes")
 public class Recipe {
 	
 	@Id

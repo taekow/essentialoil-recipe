@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.codingdojo.project.Models.LoginUser;
+import com.codingdojo.project.Models.Recipe;
 import com.codingdojo.project.Models.User;
 import com.codingdojo.project.Services.RecipeService;
 import com.codingdojo.project.Services.UserService;
@@ -104,5 +105,37 @@ public class MainController {
 			return "redirect:/";
 		}
 	}
+	
+	//******* New Recipe get route ********//
+	@GetMapping("/recipes/new")
+	public String newRecipe(
+			@ModelAttribute("newRecipe") Recipe newRecipe,
+			HttpSession session) {
+		if(session.getAttribute("loggedInUser") != null) {
+				
+			return "new.jsp";
+		}
+		
+		return "redirect:/";
+	}
+	
+	
+	//******* New Recipe post route ********//
+	@PostMapping("/recipes/create")
+	public String createRecipe(
+			@Valid @ModelAttribute("newRecipe") Recipe newRecipe,
+			BindingResult result,
+			HttpSession session) {
+		if(result.hasErrors()) {
+			
+			return "new.jsp";
+		}
+		
+		recipeService.newRecipe(newRecipe);
+		
+		return "redirect:/dashboard";
+		
+	}
+	
 	
 }
