@@ -22,9 +22,18 @@
 <script src="/webjars/jquery/jquery.min.js"></script>
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-light"
+		style="background-color: #e3f2fd;">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand mb-0 h1" href="/dashboard">Essential Oil
+					Recipes</a>
+			</div>
+		</div>
+	</nav>
 	<div class="container">
 		<div class="row justify-content-center pt-5">
-			<h1 class="text-info text-left pb-3">Welcome to Essential Oil Recipe!</h1>
+			<h2 class="text-info text-left pb-3">Welcome !</h2>
 			<div class="col-5 pt-5">
 				<h2>Register</h2>
 				<form:form action="/register" method="post" modelAttribute="newUser">

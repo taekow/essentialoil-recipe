@@ -22,55 +22,75 @@
 <script src="/webjars/jquery/jquery.min.js"></script>
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-light"
+		style="background-color: #e3f2fd;">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand mb-0 h1" href="/dashboard">Essential Oil
+					Recipes</a>
+			</div>
+			<ul class="nav justify-content-end">
+				<li class="nav-item"><a class="nav-link active"
+					href="/favorites">My Favorite</a></li>
+				<li class="nav-item"><a class="nav-link" href="/logout">Log
+						out</a></li>
+			</ul>
+		</div>
+	</nav>
 	<div class="container">
 		<div class="row">
 			<div class="d-flex">
 				<div class="flex-fill p-2">
 					<h1 class="mt-5 text-info">
 						Hello,
-						<c:out value="${loggedInUser.name}"></c:out> !
+						<c:out value="${loggedInUser.name}"></c:out>
+						!
 					</h1>
-				</div>
-				<div class="align-self-end mb-3">
-					<a href="/favorites">My Favorite</a> |
-					<a href="/logout">Log out</a>
 				</div>
 			</div>
 		</div>
 		<div class=row>
 			<div class="col mt-5">
-				<h3>Essential Oil Recipes</h3>
+				<h2>Recipe List</h2>
 			</div>
 			<div class="col mt-5 text-end">
 				<a href="/recipes/new">+ Add NEW RECIPE</a>
 			</div>
 		</div>
 		<div class="row mt-5 d-flex justify-content-center">
-			<table class="table">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col">Names</th>
-						<th scope="col">Categories</th>
-						<th scope="col">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="recipe" items="${recipes}">
+			<div class="col-10">
+				<table class="table">
+					<thead class="thead-dark">
 						<tr>
-							<td><a href="recipes/details/${recipe.id}">${recipe.name}</a></td>
-							<td>${recipe.category}</td>
-							<c:choose>
-								<c:when test="${loggedInUser.id == recipe.user.id}">
-									<td><a href="recipes/${recipe.id}/edit">Edit</a>
-										||
-										<a href="recipes/${recipe.id}/edit">Delete</a> 
-									</td>
-								</c:when>
-							</c:choose>
+							<th scope="col">Name</th>
+							<th scope="col">Categories</th>
+							<th scope="col">Actions</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<c:forEach var="recipe" items="${recipes}">
+							<tr>
+								<td><a href="recipes/details/${recipe.id}">${recipe.name}</a></td>
+								<td>${recipe.category}</td>
+								<c:choose>
+									<c:when test="${loggedInUser.id == recipe.user.id}">
+										<td><form:form action="/recipes/${recipe.id}/edit"
+												method="get">
+												<input type="submit"
+													class="btn btn-secondary form-horizontal" value="Edit" />
+											</form:form> <%-- <a href="recipes/${recipe.id}/edit">Edit</a> --%> <form:form
+												action="/recipes/${recipe.id}/delete" method="post">
+												<input type="hidden" name="_method" value="delete" />
+												<input type="submit" class="btn btn-danger form-horizontal"
+													value="Delete" />
+											</form:form></td>
+									</c:when>
+								</c:choose>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<!--<div>
 			<a href="/recipes/new" class="btn btn-info mt-5" role="button">&lt; ADD NEW RECIPE</a>

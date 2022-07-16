@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -189,7 +190,22 @@ public class MainController {
 		return "redirect:/dashboard";
 	}
 	
-	
+	//******* Delete Recipe post route ********//
+	@DeleteMapping("/recipes/{id}/delete")
+	public String deleteRecipe(
+			@PathVariable("id") Long id,
+			HttpSession session) {
+		recipeService.findById(id);
+		
+		if(session.getAttribute("loggedInUser") != null) {
+			recipeService.deleteRecipe(id);
+			
+			return "redirect:/dashboard";
+		}
+		
+		return "redirect:/"; 
+		
+	}
 	
 	
 }

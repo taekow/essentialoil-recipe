@@ -24,17 +24,25 @@
 <script src="/webjars/jquery/jquery.min.js"></script>
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-light"
+		style="background-color: #e3f2fd;">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand mb-0 h1" href="/dashboard">Essential Oil Recipes</a>
+			</div>
+			<ul class="nav justify-content-end">
+				<li class="nav-item"><a class="nav-link active" href="/dashboard">Back</a></li>
+				<li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
+			</ul>
+		</div>
+	</nav>
 	<div class="container">
 		<div class="row mt-5">
 			<div class="d-flex">
 				<div class="flex-fill p-2">
-					<h1 class="pt-5">
+					<h2 class="pt-5">
 						<c:out value="${recipe.name}"></c:out>
-					</h1>
-				</div>
-				<div class="align-self-end mb-3">
-					<a href="/dashboard">Back</a> |
-					<a href="/logout">Log out</a>
+					</h2>
 				</div>
 			</div>
 		</div>
@@ -54,8 +62,8 @@
 					<td><c:out value="${recipe.ingredient}"></c:out></td>
 				</tr>
 			</tbody>
-		</table>
-		</div> -->
+		</table>  -->
+		</div>
 		<div class="row mt-5 justify-content-center">
 		    <div class="col-2 fw-bold">
 		    	Name:

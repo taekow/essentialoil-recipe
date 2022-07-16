@@ -24,51 +24,61 @@
 <script src="/webjars/jquery/jquery.min.js"></script>
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-light"
+		style="background-color: #e3f2fd;">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand mb-0 h1" href="/dashboard">Essential Oil Recipes</a>
+			</div>
+			<ul class="nav justify-content-end">
+				<li class="nav-item"><a class="nav-link active" href="/dashboard">Back</a></li>
+				<li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
+			</ul>
+		</div>
+	</nav>
 	<div class="container">
 		<div class="row mt-5">
 			<div class="d-flex">
 				<div class="flex-fill p-2">
-					<h1 class="pt-5">Add a New Recipe</h1>
-				</div>
-				<div class="align-self-end mb-3">
-					<a href="/dashboard">Back</a> |
-					<a href="/logout">Log out</a>
+					<h2 class="pt-5">Add a New Recipe</h2>
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<form:form action="/recipes/create" method="post"
-				modelAttribute="newRecipe">
-				<div class="form-group pt-3">
-					<form:label path="name">Name:</form:label>
-					<form:errors path="name" class="text-danger" />
-					<form:input type="text" path="name" class="form-control"
-						style="width:500px;" />
-				</div>
-				<div class="form-group pt-3">
-					<form:label path="category">Category:</form:label>
-					<form:errors path="category" class="text-danger" />
-					<form:input type="text" path="category" class="form-control"
-						style="width:500px;" />
-				</div>
-				<div class="form-group pt-3">
-					<form:label path="ingredient">Ingredients:</form:label>
-					<form:errors path="ingredient" class="text-danger" />
-					<form:textarea path="ingredient" class="form-control" rows="5"
-						style="width:500px;" />
-				</div>
-				<div class="form-group pt-3">
-					<form:label path="description">Descriptions:</form:label>
-					<form:errors path="description" class="text-danger" />
-					<form:textarea path="description" class="form-control" rows="5"
-						style="width:500px;" />
-				</div>
+		<div class="row mt-5 d-flex justify-content-center">
+			<div class="col-5">
+				<form:form class="form-horizontal" action="/recipes/create"
+					method="post" modelAttribute="newRecipe">
+					<div class="form-group pt-3">
+						<form:label class="col-form-label" path="name">Name:</form:label>
+						<form:errors path="name" class="text-danger" />
+						<form:input type="text" path="name" class="form-control"
+							style="width:500px;" />
+					</div>
+					<div class="form-group pt-3">
+						<form:label path="category">Category:</form:label>
+						<form:errors path="category" class="text-danger" />
+						<form:input type="text" path="category" class="form-control"
+							style="width:500px;" />
+					</div>
+					<div class="form-group pt-3">
+						<form:label path="ingredient">Ingredients:</form:label>
+						<form:errors path="ingredient" class="text-danger" />
+						<form:textarea path="ingredient" class="form-control" rows="5"
+							style="width:500px;" />
+					</div>
+					<div class="form-group pt-3">
+						<form:label path="description">Descriptions:</form:label>
+						<form:errors path="description" class="text-danger" />
+						<form:textarea path="description" class="form-control" rows="5"
+							style="width:500px;" />
+					</div>
 					<!-- hidden -->
-					<form:input type="hidden" value="${loggedInUser.id}" path="user"/>
-				<div>
-					<input type="submit" class="btn btn-info mt-3" value="Add" />
-				</div>
-			</form:form>
+					<form:input type="hidden" value="${loggedInUser.id}" path="user" />
+					<div>
+						<input type="submit" class="btn btn-info mt-3 ml-5" value="Add" />
+					</div>
+				</form:form>
+			</div>
 		</div>
 	</div>
 </body>
