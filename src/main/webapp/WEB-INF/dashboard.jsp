@@ -18,6 +18,8 @@
 <script type="text/javascript" src="js/app.js"></script>
 <!-- for Bootstrap CSS -->
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- For any Bootstrap that uses JS or jQuery-->
 <script src="/webjars/jquery/jquery.min.js"></script>
 </head>
@@ -41,28 +43,29 @@
 		<div class="row">
 			<div class="d-flex">
 				<div class="flex-fill p-2">
-					<h1 class="mt-5 text-info">
+					<h5 class="mt-4 text-info">
 						Hello,
 						<c:out value="${loggedInUser.name}"></c:out>
 						!
-					</h1>
+					</h5>
 				</div>
 			</div>
 		</div>
 		<div class=row>
-			<div class="col mt-5">
+			<div class="col mt-4">
 				<h2>Recipe List</h2>
 			</div>
-			<div class="col mt-5 text-end">
+			<div class="col mt-4 text-end">
 				<a href="/recipes/new">+ Add NEW RECIPE</a>
 			</div>
 		</div>
-		<div class="row mt-5 d-flex justify-content-center">
+		<div class="row mt-4 d-flex justify-content-evenly">
 			<div class="col-10">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
 							<th scope="col">Name</th>
+							<th scope="col"></th>
 							<th scope="col">Categories</th>
 							<th scope="col">Actions</th>
 						</tr>
@@ -70,20 +73,53 @@
 					<tbody>
 						<c:forEach var="recipe" items="${recipes}">
 							<tr>
-								<td><a href="recipes/details/${recipe.id}">${recipe.name}</a></td>
-								<td>${recipe.category}</td>
+								<td class="align-middle"><a
+									href="recipes/details/${recipe.id}">${recipe.name}</a></td>
+								<td><c:choose>
+										<c:when test="${favoritedRecipeIds.contains(recipe.id)}">
+											<div class="">
+												<form:form action="/recipes/${recipe.id}/unfavorite"
+													method="post">
+													<button type="submit"
+														class="btn btn-outline-secondary border-0">
+														<i class="fa fa-heart"></i>
+													</button>
+													<input type="hidden" name="redirectRoute"
+														value="/dashboard" />
+												</form:form>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="">
+												<form:form action="/recipes/${recipe.id}/favorite"
+													method="post">
+													<button type="submit"
+														class="btn btn-outline-secondary border-0">
+														<i class="fa fa-heart-o"></i>
+													</button>
+													<input type="hidden" name="redirectRoute"
+														value="/dashboard" />
+												</form:form>
+											</div>
+										</c:otherwise>
+									</c:choose></td>
+								<td class="align-middle">${recipe.category}</td>
 								<c:choose>
 									<c:when test="${loggedInUser.id == recipe.user.id}">
-										<td><form:form action="/recipes/${recipe.id}/edit"
-												method="get">
-												<input type="submit"
-													class="btn btn-secondary form-horizontal" value="Edit" />
-											</form:form> <%-- <a href="recipes/${recipe.id}/edit">Edit</a> --%> <form:form
-												action="/recipes/${recipe.id}/delete" method="post">
-												<input type="hidden" name="_method" value="delete" />
-												<input type="submit" class="btn btn-danger form-horizontal"
-													value="Delete" />
-											</form:form></td>
+										<td>
+											<div class="btn-group ms-3">
+												<form:form action="/recipes/${recipe.id}/edit" method="get">
+													<input type="submit" class="btn btn-secondary" value="Edit" />
+												</form:form>
+											</div>
+											<div class="btn-group ms-3">
+												<form:form action="/recipes/${recipe.id}/delete"
+													method="post">
+													<input type="hidden" name="_method" value="delete" />
+													<input type="submit" class="btn btn-danger" value="Delete" />
+												</form:form>
+											</div>
+										</td>
 									</c:when>
 								</c:choose>
 							</tr>
@@ -92,9 +128,6 @@
 				</table>
 			</div>
 		</div>
-		<!--<div>
-			<a href="/recipes/new" class="btn btn-info mt-5" role="button">&lt; ADD NEW RECIPE</a>
-		</div> -->
 	</div>
 </body>
 </html>

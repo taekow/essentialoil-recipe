@@ -1,6 +1,7 @@
 package com.codingdojo.project.Models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -43,6 +45,9 @@ public class Recipe {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+    
+    @ManyToMany(mappedBy="favoritedRecipes", fetch = FetchType.EAGER)
+    private List<User> favoritedUsers;
     
     @PrePersist
     protected void onCreate(){
@@ -100,5 +105,11 @@ public class Recipe {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public List<User> getFavoritedUsers() {
+		return favoritedUsers;
+	}
+	public void setFavoritedUsers(List<User> favoritedUsers) {
+		this.favoritedUsers = favoritedUsers;
 	}
 }

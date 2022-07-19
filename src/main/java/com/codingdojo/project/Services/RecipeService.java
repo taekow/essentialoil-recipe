@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
 import com.codingdojo.project.Models.Recipe;
-import com.codingdojo.project.Repositories.FavoriteRepository;
+import com.codingdojo.project.Models.User;
 import com.codingdojo.project.Repositories.RecipeRepository;
 
 @Service
@@ -16,9 +16,6 @@ public class RecipeService {
 
 	@Autowired
 	private RecipeRepository recipeRepository;
-	
-	@Autowired
-	private FavoriteRepository favoriteRepository;
 	
 	// Retrieve all recipe
 	public List<Recipe> findAllRecipe() {

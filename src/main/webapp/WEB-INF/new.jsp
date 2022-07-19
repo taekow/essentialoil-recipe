@@ -37,14 +37,14 @@
 		</div>
 	</nav>
 	<div class="container">
-		<div class="row mt-5">
+		<div class="row mt-4">
 			<div class="d-flex">
 				<div class="flex-fill p-2">
 					<h2 class="pt-5">Add a New Recipe</h2>
 				</div>
 			</div>
 		</div>
-		<div class="row mt-5 d-flex justify-content-center">
+		<div class="row mt-4 d-flex justify-content-center">
 			<div class="col-5">
 				<form:form class="form-horizontal" action="/recipes/create"
 					method="post" modelAttribute="newRecipe">
@@ -74,8 +74,8 @@
 					</div>
 					<!-- hidden -->
 					<form:input type="hidden" value="${loggedInUser.id}" path="user" />
-					<div>
-						<input type="submit" class="btn btn-info mt-3 ml-5" value="Add" />
+					<div class="float-end">
+						<input type="submit" class="btn btn-info mt-3 me-4" value="Add" />
 					</div>
 				</form:form>
 			</div>

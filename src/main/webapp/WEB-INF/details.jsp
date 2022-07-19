@@ -15,6 +15,7 @@
 	crossorigin="anonymous">
 <title>Recipe Detail Page</title>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="js/app.js"></script>
 <!-- for Bootstrap CSS -->
 
@@ -46,8 +47,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-5 justify-content-center">
-		<!--  <table class="table table-borderless">
+		<%-- <div class="row mt-5 justify-content-center">
+		  <table class="table table-borderless">
 			<tbody>
 				<tr>
 					<th scope="row">Name:</th>
@@ -62,14 +63,30 @@
 					<td><c:out value="${recipe.ingredient}"></c:out></td>
 				</tr>
 			</tbody>
-		</table>  -->
-		</div>
+		</table>
+		</div> --%>
 		<div class="row mt-5 justify-content-center">
 		    <div class="col-2 fw-bold">
 		    	Name:
 		    </div>
-		    <div class="col-7">
+		    <div class="col-6">
 		    	<c:out value="${recipe.name}"></c:out>
+		    </div>
+		    <div class="col-1" class="align-top">
+	    		<c:choose>
+					<c:when test="${isFavoriteRecipe}">
+						<form:form action="/recipes/${recipe.id}/unfavorite" method="post">
+							<button type="submit" class="btn btn-outline-dark border-0 p-0"><i class="fa fa-heart fa-2x"></i></button>
+							<input type="hidden" name="redirectRoute" value="/recipes/details/${recipe.id}" />
+						</form:form>
+					</c:when>
+					<c:otherwise>
+						<form:form action="/recipes/${recipe.id}/favorite" method="post">
+							<button type="submit" class="btn btn-outline-dark border-0 p-0"><i class="fa fa-heart-o fa-2x"></i></button>
+							<input type="hidden" name="redirectRoute" value="/recipes/details/${recipe.id}" />
+						</form:form>
+					</c:otherwise>
+				</c:choose>
 		    </div>
 	    </div>
 	    <div class="row mt-4 justify-content-center">

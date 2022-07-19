@@ -1,11 +1,15 @@
 package com.codingdojo.project.Services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
 import com.codingdojo.project.Models.LoginUser;
+import com.codingdojo.project.Models.Recipe;
 import com.codingdojo.project.Models.User;
 import com.codingdojo.project.Repositories.UserRepository;
 
@@ -45,6 +49,47 @@ public class UserService {
 	// Find a user by id
 	public User findUserById(Long id) {
 		return userRepository.findById(id).orElse(null);
+	}
+	
+	public void favoriteRecipe(User user, Recipe recipe) {
+		for (Recipe favoritedRecipe: user.getFavoritedRecipes()) {
+			if (favoritedRecipe.getId() == recipe.getId()) {
+				// Already favorite
+				return;
+			}
+		}
+		
+		user.getFavoritedRecipes().add(recipe);
+		userRepository.save(user);
+	}
+	
+	public void unfavoriteRecipe(User user, Recipe recipe) {
+		List<Recipe> favoritedRecipes = user.getFavoritedRecipes();
+		for (int i = 0; i < favoritedRecipes.size(); i++) {
+			if (favoritedRecipes.get(i).getId() == recipe.getId()) {
+				user.getFavoritedRecipes().remove(i);
+				userRepository.save(user);
+			}
+		}
+	}
+	
+	public List<Long> getFavoritedRecipeIds(User user) {
+		List<Long> favoritedRecipeIds = new ArrayList<Long>();
+		for (Recipe favoritedRecipe: user.getFavoritedRecipes()) {
+			favoritedRecipeIds.add(favoritedRecipe.getId());
+		}
+		
+		return favoritedRecipeIds;
+	}
+	
+	public Boolean isFavoriteRecipe(User user, Recipe recipe) {
+		for (Recipe favoritedRecipe: user.getFavoritedRecipes()) {
+			if (favoritedRecipe.getId() == recipe.getId()) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	// Authenticate a user

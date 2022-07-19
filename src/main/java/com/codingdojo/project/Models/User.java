@@ -1,12 +1,17 @@
 package com.codingdojo.project.Models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -43,6 +48,12 @@ public class User {
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "favorites"
+    )
+    private List<Recipe> favoritedRecipes;
     
     @PrePersist
     protected void createdDate() {
@@ -108,5 +119,13 @@ public class User {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	
+	public List<Recipe> getFavoritedRecipes() {
+		return favoritedRecipes;
+	}
+	
+	public void setFavoritedUsers(List<Recipe> favoritedRecipes) {
+		this.favoritedRecipes = favoritedRecipes;
 	}
 }

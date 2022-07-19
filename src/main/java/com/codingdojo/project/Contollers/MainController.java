@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codingdojo.project.Models.LoginUser;
 import com.codingdojo.project.Models.Recipe;
@@ -96,9 +97,12 @@ public class MainController {
 	public String dashboard(
 			Model recipe,
 			HttpSession session) {
+		
+		User user = (User) session.getAttribute("loggedInUser");
 
-		if(session.getAttribute("loggedInUser") != null) {
+		if(user != null) {
 			recipe.addAttribute("recipes", recipeService.findAllRecipe()); 
+			recipe.addAttribute("favoritedRecipeIds", userService.getFavoritedRecipeIds(user));
 			
 			return "dashboard.jsp";
 			
@@ -145,11 +149,15 @@ public class MainController {
 			@PathVariable("id") Long id,
 			Model recipeModel,
 			HttpSession session) {
-		if(session.getAttribute("loggedInUser") != null) {
+		
+		User user = (User) session.getAttribute("loggedInUser");
+		
+		if(user != null) {
 			
 			Recipe recipe = recipeService.findById(id);
 			recipeModel.addAttribute("recipe", recipe);
 			recipeModel.addAttribute("user", userService.findUserByEmail("loggedInUser"));
+			recipeModel.addAttribute("isFavoriteRecipe", userService.isFavoriteRecipe(user, recipe));
 			
 			return "details.jsp";
 		}
@@ -157,7 +165,7 @@ public class MainController {
 		return "redirect:/";
 	}
 	
-	//******* Edit Book get route ********//
+	//******* Edit Recipe get route ********//
 	@GetMapping("/recipes/{id}/edit")
 	public String editRecipe(
 			@PathVariable("id") Long id,
@@ -174,7 +182,7 @@ public class MainController {
 		return "redirect:/";
 	}
 	
-	//******* Edit Book post route ********//
+	//******* Edit Recipe post route ********//
 	@PostMapping("/recipes/{id}")
 	public String updateRecipe(
 			@Valid
@@ -207,5 +215,54 @@ public class MainController {
 		
 	}
 	
+	//******* Favorites get route ********//
+	@GetMapping("/favorites")
+	public String favorites(
+			Model favorites,
+			HttpSession session) {
+
+		if(session.getAttribute("loggedInUser") != null) {
+			
+			return "favorites.jsp";
+			
+		} else {
+			
+			return "redirect:/";
+		}
+	}
 	
+	//******* Favorite Recipe post route ********//
+	@PostMapping("/recipes/{id}/favorite")
+	public String favoriteRecipe(
+			@PathVariable("id") Long id,
+			@RequestParam("redirectRoute") String redirectRoute,
+			HttpSession session) {
+		Recipe recipe = recipeService.findById(id);
+		User user = (User) session.getAttribute("loggedInUser");
+		
+		if(user != null) {
+			userService.favoriteRecipe(user, recipe);
+			
+			return "redirect:" + redirectRoute;
+		}
+		
+		return "redirect:/";
+	}
+	
+	@PostMapping("/recipes/{id}/unfavorite")
+	public String unfavoriteRecipe(
+			@PathVariable("id") Long id,
+			@RequestParam("redirectRoute") String redirectRoute,
+			HttpSession session) {
+		Recipe recipe = recipeService.findById(id);
+		User user = (User) session.getAttribute("loggedInUser");
+		
+		if(user != null) {
+			userService.unfavoriteRecipe(user, recipe);
+			
+			return "redirect:" + redirectRoute;
+		}
+		
+		return "redirect:/";
+	}
 }

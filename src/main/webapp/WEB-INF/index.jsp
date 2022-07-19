@@ -32,37 +32,38 @@
 		</div>
 	</nav>
 	<div class="container">
-		<div class="row justify-content-center pt-5">
+		<div class="row justify-content-evenly pt-5">
 			<h2 class="text-info text-left pb-3">Welcome !</h2>
-			<div class="col-5 pt-5">
+			<div class="col-5 pt-5 p">
 				<h2>Register</h2>
 				<form:form action="/register" method="post" modelAttribute="newUser">
 					<div class="form-group pt-3">
 						<form:label path="name">Name:</form:label>
 						<form:errors path="name" class="text-danger" />
 						<form:input type="text" path="name" class="form-control"
-							style="width:500px;" />
+							style="width:520px;" />
 					</div>
 					<div class="form-group pt-3">
 						<form:label path="email">Email:</form:label>
 						<form:errors path="email" class="text-danger" />
 						<form:input type="email" path="email" class="form-control"
-							style="width:500px;" />
+							style="width:520px;" />
 					</div>
 					<div class="form-group pt-3">
 						<form:label path="password">Password:</form:label>
 						<form:errors path="password" class="text-danger" />
 						<form:password path="password" class="form-control"
-							style="width:500px;" />
+							style="width:520px;" />
 					</div>
 					<div class="form-group pt-3">
 						<form:label path="confirm">Confirmation Password:</form:label>
 						<form:errors path="confirm" class="text-danger" />
 						<form:password path="confirm" class="form-control"
-							style="width:500px;" />
+							style="width:520px;" />
 					</div>
-					<div>
-						<input type="submit" class="btn btn-info mt-4" value="Register" />
+					<div class="form-group text-right">
+						<input type="submit" class="btn btn-info mt-4 float-end"
+							value="Register" />
 					</div>
 				</form:form>
 			</div>
@@ -74,17 +75,17 @@
 						<br />
 						<form:errors path="email" class="text-danger" />
 						<form:input type="email" path="email" class="form-control"
-							style="width:500px;" />
+							style="width:520px;" />
 					</div>
 					<div>
 						<form:label path="password">Password: </form:label>
 						<br />
 						<form:errors path="password" class="text-danger" />
 						<form:password path="password" class="form-control"
-							style="width:500px;" />
+							style="width:520px;" />
 					</div>
-					<div>
-						<input type="submit" class="btn btn-info mt-4" value="login" />
+					<div class="form-group">
+						<input type="submit" class="btn btn-info mt-4 float-end" value="login" />
 					</div>
 				</form:form>
 			</div>
